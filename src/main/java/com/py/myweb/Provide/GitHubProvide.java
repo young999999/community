@@ -25,7 +25,7 @@ public class GitHubProvide {
                 String string=response.body().string();
                 String token=string.split("&")[0].split("=")[1];
 
-                System.out.println(token);
+                System.out.println("得到的token是："+token);
                 return token;
             } catch (IOException e) {
                 e.printStackTrace();
