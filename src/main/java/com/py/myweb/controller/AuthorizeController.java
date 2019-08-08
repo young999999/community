@@ -1,0 +1,32 @@
+package com.py.myweb.controller;
+
+import com.py.myweb.Provide.GitHubProvide;
+import com.py.myweb.domain.AccessTokenDTO;
+import com.py.myweb.domain.GithubUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class AuthorizeController {
+    @Autowired
+    private GitHubProvide gitHubProvide;
+
+
+    @GetMapping("/callback")
+    public String callback(@RequestParam(name = "code" )String code,
+                           @RequestParam(name = "state" )String state){
+        AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+        accessTokenDTO.setClient_id("764316e90df9ea61d7d9");
+        accessTokenDTO.setClient_secret("67863e5878f1e86c4bc2fc1f931e39688dc45fb7");
+        accessTokenDTO.setCode(code);
+        accessTokenDTO.setRedirect_uri("http://localhost:8080/callback");
+        accessTokenDTO.setState(state);
+        String accessToken = gitHubProvide.getAccessToken(accessTokenDTO);
+        GithubUser user = gitHubProvide.getUser(accessToken);
+        System.out.println(user);
+        return "index";
+    }
+
+}
