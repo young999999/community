@@ -10,8 +10,8 @@ public interface UserMapper {
     @Select("select * from area where id=#{id}")
     public User getUserById(Integer id);
 
-    @Insert("insert into user (name,accountID,token,gmtCreat,gmtModified) " +
-            "values (#{name},#{accountID},#{token},#{gmtCreat},#{gmtModified})")
+    @Insert("insert into user (name,accountID,token,gmtCreat,gmtModified,avatarurl) " +
+            "values (#{name},#{accountID},#{token},#{gmtCreat},#{gmtModified},#{avatarurl})")
     void insert(User user);
 
     @Select("select * from user where token=#{token}")
