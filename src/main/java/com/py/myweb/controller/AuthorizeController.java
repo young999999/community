@@ -1,8 +1,10 @@
 package com.py.myweb.controller;
 
 import com.py.myweb.Provide.GitHubProvide;
-import com.py.myweb.domain.AccessTokenDTO;
-import com.py.myweb.domain.GithubUser;
+import com.py.myweb.domain.User;
+import com.py.myweb.dto.AccessTokenDTO;
+import com.py.myweb.dto.GithubUser;
+import com.py.myweb.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -10,11 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
     @Autowired
     private GitHubProvide gitHubProvide;
+    @Autowired
+    private UserMapper userMapper;
 
     @Value("${github.client.id}")
     private String client_id;
@@ -37,9 +42,16 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(client_url);http://localhost:8080/callback
         accessTokenDTO.setState(state);
         String accessToken = gitHubProvide.getAccessToken(accessTokenDTO);
-        GithubUser user = gitHubProvide.getUser(accessToken);
-        if(user!=null){
-            request.getSession().setAttribute("user",user);
+        GithubUser githubUser = gitHubProvide.getUser(accessToken);
+        if(githubUser!=null){
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getName());
+            user.setAccountID(String.valueOf(githubUser.getId()));
+            user.setGmtCreat(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreat());
+            userMapper.insert(user);
+            request.getSession().setAttribute("githubUser",githubUser);
             return "redirect:/";
             //sign in success
         }else {

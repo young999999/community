@@ -1,8 +1,8 @@
 package com.py.myweb.Provide;
 
 import com.alibaba.fastjson.JSON;
-import com.py.myweb.domain.AccessTokenDTO;
-import com.py.myweb.domain.GithubUser;
+import com.py.myweb.dto.AccessTokenDTO;
+import com.py.myweb.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

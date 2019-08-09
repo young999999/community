@@ -1,4 +1,4 @@
-package com.py.myweb.domain;
+package com.py.myweb.dto;
 
 public class GithubUser {
     private String name;
