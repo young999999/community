@@ -1,17 +1,13 @@
 package com.py.myweb.controller;
 
-import com.py.myweb.domain.Question;
 import com.py.myweb.domain.User;
-import com.py.myweb.dto.PaginationDTO;
 import com.py.myweb.dto.QuestionDTO;
-import com.py.myweb.mapper.QuestionMapper;
 import com.py.myweb.mapper.UserMapper;
 import com.py.myweb.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
@@ -22,15 +18,13 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
+    private UserMapper userMapper;    @Autowired
     private QuestionService questionService;
+
 
     @GetMapping("/")
     public String index(HttpServletRequest request,
-                        Model model,
-                        @RequestParam(name = "page",defaultValue = "1") Integer page,
-                        @RequestParam(name = "size",defaultValue = "5") Integer size){
+                        Model model){
         Cookie[] cookies = request.getCookies();
         if (cookies!=null&&cookies.length!=0)
             for (Cookie cookie:cookies
@@ -45,8 +39,8 @@ public class IndexController {
                 }
             }
 
-        PaginationDTO pagination=questionService.list(page,size);
-        model.addAttribute("pagination",pagination);
+        List<QuestionDTO> questionList=questionService.list();
+        model.addAttribute("questions",questionList);
         return "index";
     }
 }

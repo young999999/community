@@ -2,7 +2,6 @@ package com.py.myweb.service;
 
 import com.py.myweb.domain.Question;
 import com.py.myweb.domain.User;
-import com.py.myweb.dto.PaginationDTO;
 import com.py.myweb.dto.QuestionDTO;
 import com.py.myweb.mapper.QuestionMapper;
 import com.py.myweb.mapper.UserMapper;
@@ -21,13 +20,12 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public PaginationDTO list(Integer page, Integer size) {
+    public List<QuestionDTO> list() {
 
-        Integer offset =size*(page-1);
 
-        List<Question> qusetions = questionMapper.list(offset,size);
+        List<Question> qusetions = questionMapper.list();
         List<QuestionDTO> questionDTOList=new ArrayList<>();
-        PaginationDTO paginationDTO = new PaginationDTO();
+
         for (Question question : qusetions) {
             User user=userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -35,9 +33,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
-        Integer totalCount = questionMapper.count();
-        paginationDTO.setPagination(totalCount,page,size);
-        return paginationDTO;
+
+        return questionDTOList;
     }
 }
