@@ -1,9 +1,10 @@
-package com.py.myweb.domain;
+package com.py.myweb.dto;
 
+import com.py.myweb.domain.User;
 import lombok.Data;
 
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String  description;
@@ -14,5 +15,5 @@ public class Question {
     private Integer viewcount;
     private Integer commentcount;
     private Integer likecount;
-
+    private User user;
 }
