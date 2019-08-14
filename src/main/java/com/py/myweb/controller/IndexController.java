@@ -41,12 +41,11 @@ public class IndexController {
                     break;
                 }
             }
-        System.out.println(page.getPage());
+
         List<QuestionDTO> questionList=questionService.list();
 
-        //model.addAttribute("questions",questionList);
-        System.out.println(JSON.toJSONString(questionList.get(0)));
-        return JSON.toJSONString(questionList.get(0));
+        return JSON.toJSONString(questionList);
+        //return JSON.toJSONString(questionList.get(0));
     }
 
     @RequestMapping("/index1")
