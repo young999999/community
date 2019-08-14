@@ -15,17 +15,19 @@
 //     });
 // });
 $(document).ready(function(){
+    alert("ready")
     // 绑定点击事件
-    $("#serch").click(function(){
+    $(".pagination")(function(){
         $.ajax({
-            url:"http://localhost:8080/serch1",
+            url:"http://localhost:8080/",
             contentType:"application/json;charset=UTF-8",
-            data:'{"id":"1","name":"py"}',
+            data:'{"page":"2"}',
             dataType:"json",
             type:"post",
-            success:function(data){
-                $("#return").html(data.name)
-            }
+            // success:function(data){
+            //     alert("success")
+            // }
         });
+        alert("success")
     });
 });
