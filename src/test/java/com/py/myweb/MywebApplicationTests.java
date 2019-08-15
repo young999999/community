@@ -2,6 +2,7 @@ package com.py.myweb;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.py.myweb.domain.Page;
 import com.py.myweb.dto.QuestionDTO;
 import com.py.myweb.mapper.UserMapper;
 import com.py.myweb.service.QuestionService;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -24,7 +24,9 @@ public class MywebApplicationTests {
     private QuestionService questionService;
     @Test
     public void test(){
-        List<QuestionDTO> questionList=questionService.list();
+        Page page=new Page();
+        page.setPage(1);
+        List<QuestionDTO> questionList=questionService.list(page.getPage());
         System.out.println(questionList);
 
         String jsonstring=JSON.toJSONString(questionList);

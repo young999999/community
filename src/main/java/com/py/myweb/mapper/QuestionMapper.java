@@ -1,5 +1,6 @@
 package com.py.myweb.mapper;
 
+import com.py.myweb.domain.Page;
 import com.py.myweb.domain.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,8 +16,8 @@ public interface QuestionMapper {
             "values (#{title},#{description},#{gmtcreat},#{gmtmodified},#{creator},#{tag})")
     void creat(Question question);
 
-    @Select("select * from question")
-    List<Question> list();
+    @Select("select * from question limit #{pages},4")
+    List<Question> list(@Param(value = "pages") Integer pages);
 
     @Select("select count(1) from question")
     Integer count();

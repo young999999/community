@@ -42,16 +42,9 @@ public class IndexController {
                 }
             }
 
-        List<QuestionDTO> questionList=questionService.list();
+        System.out.println(page.getPage());
+        List<QuestionDTO> questionList=questionService.list(page.getPage()*4);
 
         return JSON.toJSONString(questionList);
-        //return JSON.toJSONString(questionList.get(0));
-    }
-
-    @RequestMapping("/index1")
-    public String index1(@RequestBody Page page,
-                         Model model){
-        System.out.println(page.getPage());
-        return "redirect:/index";
     }
 }

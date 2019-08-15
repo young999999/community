@@ -1,5 +1,6 @@
 package com.py.myweb.service;
 
+import com.py.myweb.domain.Page;
 import com.py.myweb.domain.Question;
 import com.py.myweb.domain.User;
 import com.py.myweb.dto.QuestionDTO;
@@ -20,10 +21,10 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public List<QuestionDTO> list() {
+    public List<QuestionDTO> list(Integer page) {
 
 
-        List<Question> qusetions = questionMapper.list();
+        List<Question> qusetions = questionMapper.list(page);
         List<QuestionDTO> questionDTOList=new ArrayList<>();
 
         for (Question question : qusetions) {
