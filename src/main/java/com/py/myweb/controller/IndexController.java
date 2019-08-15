@@ -19,8 +19,6 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private QuestionService questionService;
 
 
@@ -28,19 +26,6 @@ public class IndexController {
     @RequestMapping("/index")
     public /*List<QuestionDTO>*/ Object index(HttpServletRequest request,
                                              @RequestBody Page page){
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null&&cookies.length!=0)
-            for (Cookie cookie:cookies
-                 ) {
-                if (cookie.getName().equals("token")){
-                    String token=cookie.getValue();
-                    User user=userMapper.findByToken(token);
-                    if (user!=null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
 
         System.out.println(page.getPage());
         List<QuestionDTO> questionList=questionService.list(page.getPage()*4);

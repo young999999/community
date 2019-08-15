@@ -12,8 +12,7 @@ $(document).ready(function(){
     }
     document.body.onclick=function(){
         var obj=document.elementFromPoint(event.clientX,event.clientY).textContent-1;
-        var page={"page":obj}
-        page=JSON.stringify(page)
+        var page=JSON.stringify({"page":obj})
 
         $.ajaxSetup({
             contentType : 'application/json'
@@ -24,7 +23,7 @@ $(document).ready(function(){
             page,
             function(data) {
                 var d=JSON.parse(data)
-                var ht="<div id='d'>"+"fasffds"+"</div>"
+                var ht="<div id='d'>"+"</div>"
                 var ht1="<div>" +
                     "<ul>" +
                     "<div class='media-left'>" +
