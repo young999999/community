@@ -12,9 +12,10 @@ $(document).ready(function(){
     }
     $(".pagination").click(function(){
 
+        $("")
+
         $.ajaxSetup({
             contentType : 'application/json'
-
         });
         $.post(
             "http://localhost:8080/index",
@@ -40,33 +41,38 @@ $(document).ready(function(){
                                 "</div>"+
                                 "</ul>"+
                         "</div>"
-                for (var i=0;i<2;i++){
+                for (var i=0;i<d.length-1;i++){
 
                     if($(".div"+i).length==0){
                         $(".qusetionsList").append(ht)
                         $(".qusetionsList #d").eq(i).addClass('div'+[i])
-                        alert("1")
-
-                        // $(".media"+i+".media-heading").text(d[i].title)
-                        // $(".media"+i+".description").text(d[i].description)
-                        // $(".media"+i+".commentCount").text(d[i].commentcount)
-                        // $(".media"+i+".viewCount").text(d[i].viewcount)
-                        // $(".media"+i+".creattime").text(dateformat(d[i].gmtcreat))
-                        // $(".media"+i+".media-object").attr('src',d[i].user.avatarurl)
-                    }
 
 
-                    if($(".p"+i).length==0){
-                       $(".div"+i).html(ht1)
-                        alert("2")
+                        if($(".div"+i).length>0){
+                            $(".div"+i).html(ht1)
+
+                            $(".div"+i).find(".media-heading").text(d[i].title)
+                            $(".div"+i).find(".description").text(d[i].description)
+                            $(".div"+i).find(".commentCount").text(d[i].commentcount)
+                            $(".div"+i).find(".viewCount").text(d[i].viewcount)
+                            $(".div"+i).find(".creattime").text(dateformat(d[i].gmtcreat))
+                            $(".div"+i).find(".media-object").attr('src',d[i].user.avatarurl)
+                            //$(".div"+i+".media-heading").text(d[i].title)
+                            // $(".div"+i+".description").text(d[i].description)
+                            // $(".div"+i+".commentCount").text(d[i].commentcount)
+                            // $(".div"+i+".viewCount").text(d[i].viewcount)
+                            // $(".div"+i+".creattime").text(dateformat(d[i].gmtcreat))
+                            // $(".div"+i+".media-object").attr('src',d[i].user.avatarurl)
+
+
+                            // $(".media-heading").text(d.id+" "+d.title)
+                            // $(".description").text(d.description)
+                            // $(".commentCount").text(d.commentcount)
+                            // $(".viewCount").text(d.viewcount)
+                            // $(".creattime").text(dateformat(d.gmtcreat))
+                        }
                     }
                 }
-                // var d=JSON.parse(data)
-                // $(".media-heading").text(d.id+" "+d.title)
-                // $(".description").text(d.description)
-                // $(".commentCount").text(d.commentcount)
-                // $(".viewCount").text(d.viewcount)
-                // $(".creattime").text(dateformat(d.gmtcreat))
             }
         );
     });
