@@ -11,8 +11,12 @@ $(document).ready(function(){
         return newTime;
     }
     document.body.onclick=function(){
-        var obj=document.elementFromPoint(event.clientX,event.clientY).textContent-1;
-        var page=JSON.stringify({"page":obj})
+        var obj=document.elementFromPoint(event.clientX,event.clientY).textContent;
+        var pagecount=obj-1;
+        var page=JSON.stringify({"page":pagecount})
+        $(".pagination li").removeClass('active')
+        $(".page"+obj).parent().addClass('active')
+
 
         $.ajaxSetup({
             contentType : 'application/json'
