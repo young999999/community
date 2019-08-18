@@ -10,68 +10,75 @@ $(document).ready(function(){
         var newTime=y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
         return newTime;
     }
-    document.body.onclick=function(){
-        var obj=document.elementFromPoint(event.clientX,event.clientY).textContent;
-        var pagecount=obj-1;
-        var page=JSON.stringify({"page":pagecount})
-        $(".pagination li").removeClass('active')
-        $(".page"+obj).parent().addClass('active')
+    $(".pagination").click(function(){
+
+            var obj=document.elementFromPoint(event.clientX,event.clientY).textContent;
+            var pagecount=obj-1;
+            var page=JSON.stringify({"page":pagecount})
+            $(".pagination li").removeClass('active')
+            $(".page"+obj).parent().addClass('active')
 
 
-        $.ajaxSetup({
-            contentType : 'application/json'
-        });
-        $.post(
-            "http://localhost:8080/index",
-            //'{"page":1}',
-            page,
-            function(data) {
-                var d=JSON.parse(data)
-                var ht="<div id='d'>"+"</div>"
-                var ht1="<div>" +
-                    "<ul>" +
-                    "<div class='media-left'>" +
-                    "<img class='media-object'>" +
-                    "</div>" +
-                    "<div class='media-body'>" +
-                    "<h4 class='media-heading'></h4>" +
-                    "<span class='description'></span>" +
-                    "<br>" +
-                    "<span class='text-desc'>" +
-                    "<span class='commentCount'></span> 个回复 •" +
-                    "<span class='viewCount'></span> 次浏览 •" +
-                    "<span class='creattime'></span>" +
-                    "</span>"+
-                    "</div>"+
-                    "</ul>"+
-                    "</div>"
+            $.ajaxSetup({
+                contentType : 'application/json'
+            });
+            $.post(
+                "/index",
+                //'{"page":1}',
+                page,
+                function(data) {
+                    var d=JSON.parse(data)
+                    var ht="<div id='d'>"+"</div>"
+                    var ht1="<div>" +
+                        "<ul>" +
+                        "<div class='media-left'>" +
+                        "<img class='media-object'>" +
+                        "</div>" +
+                        "<div class='media-body'>" +
+                        "<h4 class='media-heading'></h4>" +
+                        "<span class='description'></span>" +
+                        "<br>" +
+                        "<span class='text-desc'>" +
+                        "<span class='commentCount'></span> 个回复 •" +
+                        "<span class='viewCount'></span> 次浏览 •" +
+                        "<span class='creattime'></span>" +
+                        "</span>"+
+                        "</div>"+
+                        "</ul>"+
+                        "</div>"
 
-                $(".qusetionsList").empty()
-                for (var i=0;i<d.length;i++){
-                    if($(".div"+obj+i).length==0){
+                    $(".qusetionsList").empty()
+                    for (var i=0;i<d.length;i++){
+                        if($(".div"+obj+i).length==0){
 
-                        $(".qusetionsList").append(ht)
-                        $(".qusetionsList #d").eq(i).removeClass()
-                        $(".qusetionsList #d").eq(i).addClass('div'+obj+i)
+                            $(".qusetionsList").append(ht)
+                            $(".qusetionsList #d").eq(i).removeClass()
+                            $(".qusetionsList #d").eq(i).addClass('div'+obj+i)
 
-                        if($(".div"+obj+i).length>0) {
-                            $(".div" + obj + i).html(ht1)
-                        }
-                        if($(".div"+obj+i).find(".media-heading").length>0){
+                            if($(".div"+obj+i).length>0) {
+                                $(".div" + obj + i).html(ht1)
+                            }
+                            if($(".div"+obj+i).find(".media-heading").length>0){
 
-                            $(".div"+obj+i).find(".media-heading").text(d[i].title)
-                            $(".div"+obj+i).find(".description").text(d[i].description)
-                            $(".div"+obj+i).find(".commentCount").text(d[i].commentcount)
-                            $(".div"+obj+i).find(".viewCount").text(d[i].viewcount)
-                            $(".div"+obj+i).find(".creattime").text(dateformat(d[i].gmtcreat))
-                            $(".div"+obj+i).find(".media-object").attr('src',d[i].user.avatarurl)
+                                $(".div"+obj+i).find(".media-heading").text(d[i].title)
+                                $(".div"+obj+i).find(".description").text(d[i].description)
+                                $(".div"+obj+i).find(".commentCount").text(d[i].commentcount)
+                                $(".div"+obj+i).find(".viewCount").text(d[i].viewcount)
+                                $(".div"+obj+i).find(".creattime").text(dateformat(d[i].gmtcreat))
+                                $(".div"+obj+i).find(".media-object").attr('src',d[i].user.avatarurl)
+                            }
                         }
                     }
                 }
-            }
-        );
-    }
+            );
+
+    });
+
 });
+
+
+
+
 // $(document).ready(function(){
 //     // 绑定点击事件
 //     $(".pagination").click(function(){
